@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{page_title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid *ngFor="let h of history; let i = index;">
+    <div [ngClass]="(i % 2 == 0) ? 'grid_odd' : 'grid_even'" *ngIf="h">
+      <ion-row>
+        <ion-col size="7">
+            {{h.play_time}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <app-numbers-panel [numbers]="h.result"></app-numbers-panel>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>

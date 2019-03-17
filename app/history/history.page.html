@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>History</ion-title>
+    <ion-buttons slot="end">
+      <div class="button">
+        <ion-icon name="search" style="zoom:1.2;" (click)="toggleSarchBar()"></ion-icon>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="showSearchBar" [hidden]="!showSearchBar">
+      <ion-searchbar [(ngModel)]="keywords" (ionChange)="searchGames()" placeholder="Filter games" debounce="1000"></ion-searchbar>
+  </div>
+  <ion-grid *ngFor="let game of items; let i = index;">
+    <div [ngClass]="(i % 2 == 0) ? 'grid_odd' : 'grid_even'" *ngIf="!game.deleted" (click)="showGameHistory(game.id)">
+      <b>{{game.name}}</b><br/>
+      <i>Created time: {{game.created_time}}</i><br/>
+      Played: {{game.pcount}} times
+    </div>
+  </ion-grid>
+</ion-content>

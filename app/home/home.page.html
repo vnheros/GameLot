@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Games</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid *ngFor="let game of games; let i = index;">
+    <div [ngClass]="(i % 2 == 0) ? 'grid_odd' : 'grid_even'" *ngIf="!game.deleted">
+        <ion-row>
+          <ion-col size="11">
+            <b>{{game.name}}</b>
+          </ion-col>
+          <ion-col size="1">
+            <div class="play_icon">
+              <ion-icon name="arrow-dropright-circle" style="zoom:1.2;" (click)=playGame(game.id)></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="11">
+            <div class="last_play_time" *ngIf="game.last_play_time">
+              Last time: {{game.last_play_time}}
+            </div>
+            <div class="last_play_time" *ngIf="!game.last_play_time">
+              Haven't been played yet. Let play.
+            </div>
+          </ion-col>
+          <ion-col size="1">
+            <div class="delete_icon">
+              <ion-icon name="close-circle" style="zoom:1.2;" (click)=deleteGame(game.id)></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="3">
+            <div class="last_result" *ngIf="game.last_play_time">
+                Last result: 
+            </div>
+          </ion-col>
+          <ion-col size="9">
+            <app-numbers-panel [numbers]="game.last_result"></app-numbers-panel>
+          </ion-col>
+        </ion-row>
+    </div>
+  </ion-grid>
+    
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger" (click)="newGame()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

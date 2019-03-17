@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Play Game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="game" style ="text-align: center; padding: 10px;">
+    <b>{{game.name}}</b><br>
+    <i>{{curTime}}</i><br>
+  </div>
+  <app-numbers-panel [numbers]="numbers"></app-numbers-panel>
+  <div style ="text-align: center; padding: 10px;">
+      <ion-button size="default" shape="round" color="secondary" (click)="startGame()" [disabled]="played">
+        Start
+      </ion-button>
+  </div>
+</ion-content>

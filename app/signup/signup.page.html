@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Signup</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <form [formGroup]="signupCreds" (submit)="signup(signupCreds.value)">
+      <ion-item>
+        <ion-label><ion-icon name="person"></ion-icon></ion-label>
+        <ion-input type="text" (ionBlur)="checkUsername($event.target.value)" placeholder="User Name" formControlName="username" required></ion-input>
+      </ion-item>
+      <p *ngIf="signupCreds.get('username').hasError('required') && signupCreds.get('username').touched" class="error">Username is required</p>
+      <p *ngIf="signupCreds.get('username').hasError('minlength') && signupCreds.get('username').touched" class="error">Username must have at least 4 characters</p>
+      <p *ngIf="signupCreds.get('username').hasError('maxlength') && signupCreds.get('username').touched" class="error">Username must have maximum 20 characters</p>
+      <p *ngIf="signupCreds.get('username').hasError('pattern') && signupCreds.get('username').touched" class="error">Username must contain only letters</p>
+      <p *ngIf="signupCreds.get('username').touched && !usernameIsValid" class="error">User is invalid or taken</p>
+      <p *ngIf="!signupCreds.get('username').hasError('maxlength') && !signupCreds.get('username').hasError('pattern') && signupCreds.get('username').touched && usernameIsValid" class="success"> User is OK</p>
+      
+      <ion-item>
+        <ion-label><ion-icon name="lock"></ion-icon></ion-label>
+        <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+      </ion-item>
+      <p *ngIf="!signupCreds.get('password').valid && signupCreds.get('password').touched" class="error">Password is not met standards</p>
+      <p *ngIf="signupCreds.get('password').valid && signupCreds.get('password').touched" class="success">Password is OK</p>
+
+      <ion-item>
+        <ion-label><ion-icon name="mail"></ion-icon></ion-label>
+        <ion-input type="email" placeholder="Your email" formControlName="email" required></ion-input>
+      </ion-item>
+      <p *ngIf="signupCreds.get('email').hasError('required') && signupCreds.get('email').touched" class="error">Email is required</p>
+      <p *ngIf="signupCreds.get('email').hasError('pattern') && signupCreds.get('email').touched" class="error">Email is wrong format</p>
+      
+      <ion-button expand="block" type="submit" color="secondary" [disabled]="!signupCreds.valid">Sign up</ion-button>
+  </form>
+
+</ion-content>
